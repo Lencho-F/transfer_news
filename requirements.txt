@@ -1,3 +1,2 @@
-gunicorn==14.17.0
 Django==4.0.3
 Pillow==9.3.0
