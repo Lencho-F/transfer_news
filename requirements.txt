@@ -16,7 +16,7 @@ compressed-rtf==1.0.6
 comtypes==1.1.14
 cryptography==41.0.3
 dill==0.3.6
-Django==4.1.10
+Django==4.2.5
 django-cors-headers==4.2.0
 django-crispy-forms==2.0
 django-urls==1.1.3
