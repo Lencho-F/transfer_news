@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<style>
+    .container-fluid {
+        min-height: 100vh; /* Ensure full viewport height */
+        background: linear-gradient(to bottom, #cc00cc 0%, #000099 100%);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .container {
+        max-width: 800px; /* Adjust this value for the desired maximum width */
+        width: 100%;
+    }
+</style>
+
+<div class="container-fluid d-flex align-items-center justify-content-center h-100">
+    <div class="container mt-4">
+        <h2>Login</h2>
+        
+        {% if messages %}
+            <ul class="messages">
+                {% for message in messages %}
+                    <li style="list-style:none" {% if message.tags %} class=" alert alert-danger {{ message.tags }}"{% endif %}>{{ message }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+        <form method="post" action="{% url 'login' %}">
+            {% csrf_token %}
+            <div class="mb-3">
+                <label for="phone_number" class="form-label">Phone Number</label>
+                <input type="text" class="form-control" id="phone_number" name="phone_number" required>
+            </div>
+            <div class="mb-3">
+                <label for="password" class="form-label">Password</label>
+                <input type="password" class="form-control" id="password" name="password" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Login</button>
+        </form>
+    </div>
+</div>
+{% endblock %}

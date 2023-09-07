@@ -1,0 +1,169 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div class="container mt-4">
+    <div class="row">
+        <!-- Left Column (Categories) -->
+        <div class="col-lg-3 col-md-4 col-sm-12">
+            <h3>Categories</h3>
+            <!-- Sports Category -->
+            <div class="mb-3 ms-3">
+                <ul class="list-unstyled">
+                    <li><a href="#footballSubcategories" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="footballSubcategories" 
+                        style="color: white;"><img src="..\media\flags\football.png" alt="football icon" > Football</a></li>
+                    <div class="collapse" id="footballSubcategories">
+                        <ul class="list-unstyled ms-3">
+                            <li><a href="#" style="color: white;"><img src="..\media\flags\spain.png" alt="spain flag" > La Liga</a></li>
+                            <li><a href="#" style="color: white;"><img src="..\media\flags\england.png" alt="england flag" > EPL</a></li>
+                            <li><a href="#" style="color: white;"><img src="..\media\flags\germany.png" alt="germany flag" > Bundesliga</a></li>
+                            <li><a href="#" style="color: white;"><img src="..\media\flags\france.png" alt="france flag" > Ligue 1</a></li>
+                            <li><a href="#" style="color: white;"><img src="..\media\flags\usa.png" alt="usa flag" > MLS</a></li>
+                            <li><a href="#" style="color: white;"><img src="..\media\flags\saudi.png" alt="saudi flag" > Saudi Pro League</a></li>
+                            <!-- Add more football subcategories here -->
+                        </ul>
+                    </div>
+                    <li><a href="#basketballSubcategories" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="basketballSubcategories"
+                         style="color: white;"><img src="..\media\flags\basket.png" alt="basketball icon" > Basketball</a></li>
+                    <div class="collapse" id="basketballSubcategories">
+                        <ul class="list-unstyled ms-3">
+                            <li><a href="#" style="color: white;"><img src="..\media\flags\usa.png" alt="usa flag" > NBA</a></li>
+                            <li><a href="#" style="color: white;"><img src="..\media\flags\argentina.png" alt="argentina flag" > LNB</a></li>
+                            <li><a href="#" style="color: white;"><img src="..\media\flags\brazil.png" alt="brazil flag" > CBB</a></li>
+                            <li><a href="#" style="color: white;"><img src="..\media\flags\china.png" alt="china flag" > CBA</a></li>
+                            
+                            <!-- Add more football subcategories here -->
+                        </ul>
+                    </div>
+                    
+                    <!-- Add more sports categories here -->
+                </ul>
+            </div>
+            <!-- Add more categories as needed -->
+        </div>
+
+        <!-- Right Column (News Items) -->
+        <div class="col-lg-9 col-md-8 col-sm-12">
+            <h3>News Items</h3>
+            <div class="row">
+                <!-- Display news items in a row for larger screens -->
+                {% for news_sample in news_samples %}
+                <div class="col-lg-4 col-md-6 col-sm-6 mb-4">
+                    <div class="card text-white" style="background: linear-gradient(to bottom, #3333cc 0%, #660066 100%);">
+                        <div style="height: 200px; overflow: hidden;">
+                            <img src="{{ news_sample.image.url }}" class="card-img" alt="{{ news_sample.title }}" style="width: 100%; height: 100%; object-fit: cover;">
+                        </div>
+                        <div class="card-body" style="height: 300px; display: flex; flex-direction: column;">
+                            <h5 class="card-title">{{ news_sample.title }}</h5>
+                            <p class="card-text">{{ news_sample.description }}</p>
+                            <div class="mt-auto text-center">
+                                <a href="{% url 'login' %}" class="btn btn-primary">Login for Details</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+        <div id="about">
+            <div class="card mb-3 text-light" style= "background: none"> <!-- Light lavender background -->
+                <div class="card-body">
+                    <h2 class="text-center fw-bold">About Us</h2>
+                    <h5 class="card-title text-center">Welcome to The Transfer News</h5>
+                    <p class="card-text text-justify">Stay in the know with the latest transfer news across 
+                        the world of sports. From thrilling football signings to exciting basketball trades, 
+                        we bring you the inside scoop on all the action. Our dedicated team of sports 
+                        enthusiasts and journalists work tirelessly to provide you with reliable and exciting 
+                        transfer news, player signings, and trade speculations. Whether you're a die-hard sports 
+                        fan or just curious about the latest roster changes, our platform has you covered. 
+                        Join us on this exciting journey through the dynamic world of sports transfers!</p>
+                </div>
+            </div>
+        </div>
+        
+        
+        <div id="contact">
+            <div class="container mt-4">
+                <div class="row justify-content-center">
+                    <div class="col-md-8 col-lg-6">
+                        <h2 class="fw-bold">Contact Us</h2>
+                        <form method="post" action="{% url 'home' %}" id="contact-form">
+                            {% csrf_token %}
+                            <div class="mb-3">
+                                <label for="name" class="form-label">Name:</label>
+                                <input type="text" class="form-control" id="name" name="name" placeholder="John Smith" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="email" class="form-label">Email:</label>
+                                <input type="email" class="form-control" id="email" name="email" placeholder="example@gmail.com" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="message" class="form-label">Message:</label>
+                                <textarea class="form-control" id="message" name="message" rows="5" required></textarea>
+                            </div>
+                            <div class="text-center">
+                                <button type="submit" class="btn btn-primary">Submit</button>
+                            </div>
+                        </form>
+                    <div id="popup-card" class="popup text-dark" style="display: none; position: fixed; top: 0; left: 0;
+                    width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.7); z-index: 1000; overflow: auto;">
+                        <div class="popup-content" style="background-color: #fefefe; margin: 25% auto; padding: 20px;
+                        border: 1px solid #888; width: 80%; max-width: 600px; position: relative;">
+                            <span class="close-button" style="position: absolute; top: 0; right: 0; padding: 10px;
+                            cursor: pointer; font-size: 24px;" onclick="closePopupCard()">&times;</span>
+                            <p>Thank you for contacting us! We will get back to you shortly.</p>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+            </div>
+        </div>   
+            
+            
+</div>
+
+<!-- JavaScript to handle form submission and show the "Thank You" message -->
+<script>
+    // Function to open the pop-up card
+    function openPopupCard() {
+        const popup = document.getElementById('popup-card');
+        popup.style.display = 'block';
+
+        // Store a flag in localStorage to indicate that the pop-up is open
+        localStorage.setItem('popupVisible', 'true');
+    }
+
+    // Function to close the pop-up card
+    function closePopupCard() {
+        const popup = document.getElementById('popup-card');
+        popup.style.display = 'none';
+
+        // Remove the flag from localStorage when the pop-up is closed
+        localStorage.removeItem('popupVisible');
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+        const form = document.getElementById('contact-form');
+        const popupVisible = localStorage.getItem('popupVisible');
+
+        // Check if the pop-up should be displayed based on the localStorage flag
+        if (popupVisible === 'true') {
+            openPopupCard();
+        }
+
+        form.addEventListener('submit', function(event) {
+            //event.preventDefault(); // Prevent the form from submitting
+
+            // Display the pop-up card
+            openPopupCard();
+        });
+    });
+</script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+$(document).ready(function() {
+    // Clear form fields on page load
+    $('form input[type="text"], form input[type="email"], form textarea').val('');
+});
+</script>
+
+{% endblock %}

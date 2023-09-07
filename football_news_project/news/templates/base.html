@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Football Transfer News</title>
+    <!-- Add your CSS links here -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.5.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Ff538Id3g6axz5nGz7nU0Ot9F0v5jz3f/C8F4HA+Qp6j5ai5fks5F8+5ZefhF5Flr"/>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLR5BXt62p0t8W0p+PzKlo8K93l2Nf5VJEd5fF5PUEb" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.5.0/dist/js/bootstrap.min.js" integrity="sha384-oL3Rs9zFzI9z6pe2r6c5n2NwnJ0ItfPEj09f/rfdfs3awfFavYR/pf5d9Id4+frDp" ></script>
+    <style>
+        body {
+            background: linear-gradient(to bottom, #cc00cc 0%, #000099 100%);
+            background-repeat: no-repeat;
+            /* background-color: #333; Dark gray background */
+            color: #fff; /* White text */
+            padding-top: 60px;
+            font-family: 'Poppins', 'Lato', sans-serif;
+        }
+        .navbar {
+            background-color: #222; /* Dark gray navbar */
+        }
+        .navbar .navbar-brand{
+            color: #fff;
+        }
+        
+        .navbar-dark .navbar-nav .nav-link {
+            color: #fff; /* White navbar text */
+            padding: 3px;
+            margin-left: 3px;
+            margin-right: 3px;
+        }
+        .fixed-top {
+            z-index: 1000; /* Adjust the z-index to make sure it's above other elements */
+        }
+        html {
+            scroll-behavior: smooth;
+        }
+        .btn-primary {
+            background-color: #007bff; /* Blue primary buttons */
+        }
+        .btn-primary:hover {
+            background-color: #0056b3; /* Darker blue on hover */
+        }
+        a{
+            text-decoration:none;
+        }
+        li a:hover {
+            background-color: gray ;
+        }
+        
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark">
+        <div class="container">
+            {% if request.resolver_match.url_name == 'home'%}
+                <a class="navbar-brand fw-bold" href="{% url 'home' %}">The Transfer News</a>
+            {% endif %}
+
+            {% if request.resolver_match.url_name == 'login'%}
+                <a class="navbar-brand fw-bold" href="{% url 'home' %}">The Transfer News</a>
+            {% endif %}
+
+            {% if request.resolver_match.url_name == 'secret_page'%}
+                <a class="navbar-brand fw-bold" href="{% url 'secret_page' %}">The Transfer News</a>
+            {% endif %}
+
+            <!-- Use data-bs attributes for Bootstrap 5 -->
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+    
+            <!-- Wrap navigation links in a collapsible div -->
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto"> <!-- Use ms-auto to align links to the right -->
+                    {% if request.resolver_match.url_name == 'home' %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'home' %}">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#about">About</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#contact">Contact-Us</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'login' %}">Login</a>
+                        </li>
+                    {% endif %}
+                    {% if request.resolver_match.url_name == 'login' %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'home' %}">Home</a>
+                        </li>
+                    {% endif %}
+                    {% if request.resolver_match.url_name == 'secret_page' %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="#about">About</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#contact">Contact-Us</a>
+                        </li>
+                        <a href="{% url 'logout' %}" class="nav-link">Logout</a>
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
+    </nav>
+        
+    <!-- Page content -->
+    {% block content %}
+    {% endblock %}
+    {% include 'footer.html' %}
+</body>
+    <!-- Bootstrap JS and custom JavaScript code -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Add your custom JavaScript code
