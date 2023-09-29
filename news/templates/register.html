@@ -1,0 +1,94 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<style>
+    .container-fluid {
+        min-height: 100vh; /* Ensure full viewport height */
+        background: linear-gradient(to bottom, #cc00cc 0%, #000099 100%);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .container {
+        max-width: 800px; /* Adjust this value for the desired maximum width */
+        width: 100%;
+    }
+</style>
+
+<div class="container-fluid d-flex align-items-center justify-content-center h-100">
+    <div class="container mt-4">
+        <h2>Register</h2>
+        {% if messages %}
+            <ul class="messages">
+                {% for message in messages %}
+                    <li style="list-style:none" {% if message.tags %} class=" alert alert-danger {{ message.tags }}"{% endif %}>{{ message }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+        <form method="post" action="{% url 'register' %}">
+            {% csrf_token %}
+            <div class="mb-3">
+                <label for="first_name" class="form-label">First Name</label>
+                <input type="text" class="form-control" id="first_name" name="first_name" required>
+            </div>
+            <div class="mb-3">
+                <label for="last_name" class="form-label">Last Name</label>
+                <input type="text" class="form-control" id="last_name" name="last_name" required>
+            </div>
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="mb-3">
+                        <label for="country_code" class="form-label">Country Code</label>
+                        <select class="form-select" id="country_code" name="country_code" required>
+                            <option value="+251">+251 (Ethiopia)</option>
+                            <!-- Add more country code options as needed -->
+                        </select>
+                    </div>
+                </div>
+        
+                <div class="col-md-9">
+                    <div class="mb-3">
+                        <label for="phone_number" class="form-label">Phone Number</label>
+                        <input type="text" class="form-control" id="phone_number" name="phone_number" required>
+                    </div>
+                </div>
+            </div>        
+            <div class="mb-3">
+                <label for="password" class="form-label">Password</label>
+                <input type="password" class="form-control" id="password" name="password" required>
+            </div>
+            <div class="mb-3">
+                <label for="confirm_password" class="form-label">Confirm Password</label>
+                <input type="password" class="form-control" id="confirm_password" name="confirm_password" required>
+            </div>
+            <!-- Real-time password match feedback -->
+            <div id="password-feedback"></div>
+            <button type="submit" class="btn btn-primary">Register</button>
+        </form>
+        <p>Already have an account? <a href="{% url 'login' %}">Login</a></p>
+    </div>
+</div>
+
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function() {
+        // Track password matching in real-time
+        $('#password, #confirm_password').on('keyup', function() {
+            var password = $('#password').val();
+            var confirm_password = $('#confirm_password').val();
+            var feedbackDiv = $('#password-feedback');
+
+            if (password === confirm_password) {
+                feedbackDiv.html('<p class="text-success">Passwords match.</p>');
+            } else {
+                feedbackDiv.html('<p class="text-danger">Passwords do not match.</p>');
+            }
+        });
+    });
+</script>
+
+
+
+{% endblock %}

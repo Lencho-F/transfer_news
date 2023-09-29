@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<style>
+    .container-fluid {
+        min-height: 100vh; /* Ensure full viewport height */
+        background: linear-gradient(to bottom, #cc00cc 0%, #000099 100%);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .container {
+        max-width: 800px; /* Adjust this value for the desired maximum width */
+        width: 100%;
+    }
+</style>
+
+<div class="container-fluid d-flex align-items-center justify-content-center h-100">
+    <div class="container mt-4">
+        <h2>Login</h2>
+        {% if messages %}
+            <ul class="messages">
+                {% for message in messages %}
+                    {% if message.tags == 'error' %}
+                        <li style="list-style:none" class="alert alert-danger">{{ message }}</li>
+                    {% elif message.tags == 'success' %}
+                        <li style="list-style:none" class="alert alert-success">{{ message }}</li>
+                    {% else %}
+                        <!-- Handle other message tags as needed -->
+                        <li style="list-style:none">{{ message }}</li>
+                    {% endif %}
+                {% endfor %}
+            </ul>
+        {% endif %}
+        <form method="post" action="{% url 'login' %}">
+            {% csrf_token %}
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="mb-3">
+                        <label for="country_code" class="form-label">Country Code</label>
+                        <select class="form-select" id="country_code" name="country_code" required>
+                            <option value="+251">+251 (Ethiopia)</option>
+                            <!-- Add more country code options as needed -->
+                        </select>
+                    </div>
+                </div>
+        
+                <div class="col-md-9">
+                    <div class="mb-3">
+                        <label for="phone_number" class="form-label">Phone Number</label>
+                        <input type="text" class="form-control" id="phone_number" name="phone_number" required>
+                    </div>
+                </div>
+            </div>       
+            <div class="mb-3">
+                <label for="password" class="form-label">Password</label>
+                <input type="password" class="form-control" id="password" name="password" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Login</button>
+        </form>
+        <p>Don't have an account? <a href="{% url 'register' %}">Register</a></p>
+    </div>
+</div>
+{% endblock %}

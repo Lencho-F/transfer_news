@@ -68,6 +68,14 @@
                 <a class="navbar-brand fw-bold" href="{% url 'home' %}">The Transfer News</a>
             {% endif %}
 
+            {% if request.resolver_match.url_name == 'register'%}
+                <a class="navbar-brand fw-bold" href="{% url 'home' %}">The Transfer News</a>
+            {% endif %}
+
+            {% if request.resolver_match.url_name == 'verify'%}
+                <a class="navbar-brand fw-bold" href="{% url 'home' %}">The Transfer News</a>
+            {% endif %}
+
             {% if request.resolver_match.url_name == 'secret_page'%}
                 <a class="navbar-brand fw-bold" href="{% url 'secret_page' %}">The Transfer News</a>
             {% endif %}
@@ -95,6 +103,16 @@
                         </li>
                     {% endif %}
                     {% if request.resolver_match.url_name == 'login' %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'home' %}">Home</a>
+                        </li>
+                    {% endif %}
+                    {% if request.resolver_match.url_name == 'register' %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'home' %}">Home</a>
+                        </li>
+                    {% endif %}
+                    {% if request.resolver_match.url_name == 'verify' %}
                         <li class="nav-item">
                             <a class="nav-link" href="{% url 'home' %}">Home</a>
                         </li>

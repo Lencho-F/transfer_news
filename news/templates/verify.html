@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<style>
+    .container-fluid {
+        min-height: 100vh; /* Ensure full viewport height */
+        background: linear-gradient(to bottom, #cc00cc 0%, #000099 100%);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .container {
+        max-width: 800px; /* Adjust this value for the desired maximum width */
+        width: 100%;
+    }
+</style>
+
+<div class="container-fluid d-flex align-items-center justify-content-center h-100">
+    <div class="container mt-4">
+        <h2>Verification</h2>
+        <p>Enter the verification code sent to {{ phone_number }}</p>
+        <form method="post" action="{% url 'verify' %}">
+            {% csrf_token %}
+            <div class="mb-3">
+                <input type="text" class="form-control" name="code" maxlength="6" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Verify Code</button>
+        </form>
+    </div>
+</div>
+{% endblock %}
+
